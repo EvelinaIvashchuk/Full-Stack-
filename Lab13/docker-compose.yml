@@ -1,0 +1,41 @@
+# Лабораторна робота №13. Запуск бази даних PostgreSQL і FastAPI-додатку
+
+services:
+  # Контейнер з базою даних PostgreSQL
+  postgres-db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: booksdb
+    # Зовнішній порт 5433, бо порт 5432 на цьому комп'ютері зайнятий
+    # локально встановленим PostgreSQL. Усередині мережі Docker база даних
+    # і далі працює на порту 5432, тому DATABASE_URL змінювати не потрібно.
+    ports:
+      - "5433:5432"
+    volumes:
+      # Дані бази зберігаються в томі pgdata і не зникають після зупинки контейнера
+      - pgdata:/var/lib/postgresql/data
+    # Перевірка готовності: база даних повинна почати приймати підключення
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d booksdb"]
+      interval: 2s
+      timeout: 3s
+      retries: 15
+
+  # Контейнер з FastAPI-додатком
+  fastapi-app:
+    build: .
+    # Додаток запускається лише після того, як база даних готова до роботи
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: "postgresql://user:password@postgres-db:5432/booksdb"
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+
+volumes:
+  pgdata:

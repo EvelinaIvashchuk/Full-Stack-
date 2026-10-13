@@ -1,0 +1,5 @@
+fastapi==0.142.2
+uvicorn==0.54.0
+ormar==0.26.0
+aiosqlite==0.22.1
+httpx==0.28.1

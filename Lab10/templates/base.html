@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {# Блок title кожна сторінка заповнює своєю назвою #}
+    <title>{% block title %}{% endblock %} - Okean Elzy</title>
+    {# url_for("static", ...) будує адресу файла з папки static #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="site-header">
+        <a class="logo" href="{{ url_for('index') }}">Okean Elzy</a>
+        <nav class="main-nav">
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('about') }}">About the project</a>
+            <a href="{{ url_for('history') }}">Band history</a>
+        </nav>
+        <div class="auth">
+            {# У session зберігаються дані користувача, який увійшов на сайт #}
+            {% if session.get("user_id") %}
+                <span class="user">{{ session["username"] }}</span>
+                <form method="post" action="{{ url_for('logout') }}">
+                    <button class="link-button" type="submit">Log out</button>
+                </form>
+            {% else %}
+                <a href="{{ url_for('login') }}">Log in</a>
+                <a href="{{ url_for('register') }}">Register</a>
+            {% endif %}
+        </div>
+    </header>
+
+    {# Меню альбомів: список menu_albums передає функція inject_albums() #}
+    <nav class="album-nav">
+        <span>Albums:</span>
+        {% for item in menu_albums %}
+            <a href="{{ url_for('album_page', album_id=item['id']) }}">
+                {{ item["title"] }}
+            </a>
+        {% endfor %}
+        {% if session.get("user_id") %}
+            <a class="add" href="{{ url_for('add_album') }}">+ Add album</a>
+        {% endif %}
+    </nav>
+
+    <main>
+        {# Повідомлення, створені функцією flash() #}
+        {% for message in get_flashed_messages() %}
+            <p class="flash">{{ message }}</p>
+        {% endfor %}
+
+        {# Блок content - основний вміст кожної сторінки #}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        Educational project. Lab 10 "Working with Flask". Evelina Ivashchuk, group 444B.
+    </footer>
+</body>
+</html>

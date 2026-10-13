@@ -1,0 +1,40 @@
+{# Сторінка окремого альбому #}
+{% extends "base.html" %}
+
+{% block title %}{{ album["title"] }}{% endblock %}
+
+{% block content %}
+<article class="album">
+    <div class="cover large">{{ album["title"][0] }}</div>
+    <div>
+        <h1>{{ album["title"] }}</h1>
+        <p class="meta">Year of release: {{ album["year"] }}</p>
+        <p>{{ album["description"] }}</p>
+
+        <h2>Songs</h2>
+        {% if tracks %}
+            <ol>
+                {% for track in tracks %}
+                    <li>{{ track }}</li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <p>The list of songs is not added yet.</p>
+        {% endif %}
+
+        {# Кнопки редагування і видалення бачать лише авторизовані користувачі #}
+        {% if session.get("user_id") %}
+            <div class="actions">
+                <a class="button"
+                   href="{{ url_for('edit_album', album_id=album['id']) }}">Edit</a>
+                {# Видалення надсилається методом POST через форму #}
+                <form method="post"
+                      action="{{ url_for('delete_album', album_id=album['id']) }}"
+                      onsubmit="return confirm('Delete this album?');">
+                    <button class="button danger" type="submit">Delete</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+</article>
+{% endblock %}

@@ -1,0 +1,28 @@
+{# Форма додавання і редагування альбому (один шаблон для обох сторінок) #}
+{% extends "base.html" %}
+
+{% block title %}{{ heading }}{% endblock %}
+
+{% block content %}
+<h1>{{ heading }}</h1>
+
+{# Форма надсилається методом POST на ту саму адресу, з якої відкрита #}
+<form class="form" method="post">
+    <label for="title">Title</label>
+    <input id="title" name="title" type="text" value="{{ album['title'] }}" required>
+
+    <label for="year">Year of release</label>
+    <input id="year" name="year" type="number" min="1900" max="2100"
+           value="{{ album['year'] }}" required>
+
+    <label for="description">Description</label>
+    <textarea id="description" name="description" rows="4"
+              required>{{ album['description'] }}</textarea>
+
+    <label for="tracks">Songs (one song per line)</label>
+    <textarea id="tracks" name="tracks" rows="8">{{ album['tracks'] }}</textarea>
+
+    <button class="button" type="submit">Save</button>
+    <a class="cancel" href="{{ url_for('index') }}">Cancel</a>
+</form>
+{% endblock %}

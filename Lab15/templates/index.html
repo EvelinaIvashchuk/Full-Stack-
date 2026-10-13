@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Text Emotion Recognition</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f7fa;
+        margin: 0;
+        padding: 40px 0;
+        display: flex;
+        justify-content: center;
+    }
+    .container {
+        width: 100%;
+        max-width: 520px;
+        background: #fff;
+        padding: 25px;
+        border-radius: 10px;
+        border: 1px solid #e0e0e0;
+    }
+    h2 {
+        text-align: center;
+        margin-bottom: 8px;
+        color: #333;
+        font-size: 24px;
+    }
+    .hint {
+        text-align: center;
+        margin: 0 0 20px;
+        color: #777;
+        font-size: 14px;
+    }
+    textarea {
+        box-sizing: border-box;
+        width: 100%;
+        height: 120px;
+        padding: 10px;
+        font-family: inherit;
+        font-size: 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        resize: none;
+    }
+    button {
+        width: 100%;
+        margin-top: 15px;
+        padding: 12px;
+        font-size: 16px;
+        background: #4a90e2;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #3b78c2;
+    }
+    .result {
+        margin-top: 15px;
+        padding: 12px;
+        border-radius: 6px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .result small {
+        display: block;
+        margin-top: 4px;
+        font-size: 13px;
+        font-weight: normal;
+    }
+    .sad {
+        background: #e8eefc;
+        color: #2c4a9a;
+    }
+    .happy {
+        background: #e8f5e9;
+        color: #2e7d32;
+    }
+    .error {
+        background: #fdeaea;
+        color: #c62828;
+        font-size: 15px;
+        font-weight: normal;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Text Emotion Recognition</h2>
+    <p class="hint">Enter a text in English to find out whether it is happy or sad.</p>
+
+    {# Форма надсилає введений текст методом POST на маршрут /predict #}
+    <form action="/predict" method="POST">
+        <textarea name="message"
+                  placeholder="Enter text to classify...">{{ message }}</textarea>
+        <button type="submit">Check</button>
+    </form>
+
+    {# Блок з результатом показуємо лише тоді, коли додаток передав result #}
+    {% if result %}
+        <div class="result {% if result == 'HAPPY' %}happy{% else %}sad{% endif %}">
+            {{ result }}
+            <small>confidence of the model: {{ probability }}%</small>
+        </div>
+    {% endif %}
+
+    {# Повідомлення про помилку, якщо текст порожній #}
+    {% if error %}
+        <div class="result error">{{ error }}</div>
+    {% endif %}
+</div>
+</body>
+</html>

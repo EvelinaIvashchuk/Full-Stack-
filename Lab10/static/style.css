@@ -1,0 +1,295 @@
+/* Лабораторна робота №10. Оформлення сайту гурту */
+
+/* Кольори сайту зберігаємо у змінних, щоб їх було легко змінити */
+:root {
+    --background: #11151c;
+    --surface: #1b212c;
+    --border: #2c3545;
+    --text: #e8ecf1;
+    --muted: #9aa7b8;
+    --accent: #f2b134;
+    --danger: #e05252;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--background);
+}
+
+a {
+    color: var(--accent);
+}
+
+/* Шапка сайту */
+.site-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px;
+    padding: 16px 32px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: var(--text);
+}
+
+.main-nav {
+    display: flex;
+    gap: 20px;
+    flex: 1;
+}
+
+.main-nav a,
+.auth a {
+    text-decoration: none;
+    color: var(--text);
+}
+
+.main-nav a:hover,
+.auth a:hover {
+    color: var(--accent);
+}
+
+.auth {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.user {
+    color: var(--muted);
+}
+
+.link-button {
+    padding: 0;
+    border: none;
+    background: none;
+    font: inherit;
+    color: var(--text);
+    cursor: pointer;
+}
+
+.link-button:hover {
+    color: var(--accent);
+}
+
+/* Меню альбомів */
+.album-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    padding: 10px 32px;
+    font-size: 14px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+}
+
+.album-nav a {
+    text-decoration: none;
+}
+
+.album-nav .add {
+    margin-left: auto;
+    font-weight: 600;
+}
+
+/* Основний вміст */
+main {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 32px 24px 48px;
+}
+
+h1 {
+    margin-top: 0;
+    font-size: 32px;
+}
+
+h2 {
+    margin-top: 32px;
+}
+
+.flash {
+    padding: 10px 16px;
+    border-left: 4px solid var(--accent);
+    background: var(--surface);
+}
+
+.hero {
+    padding: 40px 32px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: linear-gradient(135deg, #1b212c, #2a2340);
+}
+
+.hero h1 {
+    font-size: 44px;
+    margin-bottom: 8px;
+}
+
+.hero p {
+    max-width: 560px;
+    color: var(--muted);
+}
+
+/* Кнопки */
+.button {
+    display: inline-block;
+    padding: 9px 20px;
+    border: none;
+    border-radius: 6px;
+    font: inherit;
+    font-weight: 600;
+    text-decoration: none;
+    color: #11151c;
+    background: var(--accent);
+    cursor: pointer;
+}
+
+.button.danger {
+    color: #ffffff;
+    background: var(--danger);
+}
+
+/* Картки альбомів на головній сторінці */
+.album-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
+}
+
+.album-card {
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text);
+    background: var(--surface);
+}
+
+.album-card:hover {
+    border-color: var(--accent);
+}
+
+.album-card h3 {
+    margin: 12px 0 0;
+    font-size: 17px;
+}
+
+.album-card p {
+    margin: 2px 0 0;
+    color: var(--muted);
+}
+
+/* "Обкладинка" альбому: квадрат з першою літерою назви */
+.cover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    font-size: 56px;
+    font-weight: 700;
+    color: #11151c;
+    background: linear-gradient(135deg, var(--accent), #e0673a);
+}
+
+.cover.large {
+    width: 220px;
+    flex-shrink: 0;
+    font-size: 96px;
+}
+
+/* Сторінка альбому */
+.album {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 32px;
+}
+
+.meta {
+    color: var(--muted);
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+/* Історія гурту */
+.timeline {
+    padding: 0;
+    list-style: none;
+}
+
+.timeline li {
+    padding: 12px 0 12px 84px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+}
+
+.timeline .year {
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+/* Форми */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 560px;
+}
+
+.form.narrow {
+    max-width: 340px;
+}
+
+.form label {
+    margin-top: 10px;
+    color: var(--muted);
+}
+
+.form input,
+.form textarea {
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font: inherit;
+    color: var(--text);
+    background: var(--surface);
+}
+
+.form .button {
+    align-self: flex-start;
+    margin-top: 16px;
+}
+
+.cancel {
+    align-self: flex-start;
+}
+
+.site-footer {
+    padding: 20px 32px;
+    font-size: 14px;
+    text-align: center;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+}

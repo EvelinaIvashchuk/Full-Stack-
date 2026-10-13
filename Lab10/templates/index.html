@@ -1,0 +1,28 @@
+{# Головна сторінка. Шаблон розширює base.html і заповнює його блоки #}
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Okean Elzy</h1>
+    <p>A Ukrainian rock band founded in Lviv in 1994. This site tells the story of the band
+       and presents its albums.</p>
+    <a class="button" href="{{ url_for('history') }}">Read the band history</a>
+</section>
+
+<h2>Albums</h2>
+<div class="album-grid">
+    {# Перебираємо альбоми, які передала функція index() #}
+    {% for album in albums %}
+        <a class="album-card" href="{{ url_for('album_page', album_id=album['id']) }}">
+            <div class="cover">{{ album["title"][0] }}</div>
+            <h3>{{ album["title"] }}</h3>
+            <p>{{ album["year"] }}</p>
+        </a>
+    {% else %}
+        {# Гілка else циклу for виконується, якщо список порожній #}
+        <p>There are no albums yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

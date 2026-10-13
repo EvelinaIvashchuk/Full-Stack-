@@ -1,0 +1,32 @@
+{# Сторінка "Про проект" #}
+{% extends "base.html" %}
+
+{% block title %}About the project{% endblock %}
+
+{% block content %}
+<h1>About the project</h1>
+
+<p>This site is an educational project created for laboratory work No. 10
+   "Working with Flask" of the course
+   "Full-Stack development of intelligent applications".</p>
+
+<h2>What the site can do</h2>
+<ul>
+    <li>shows the pages "Home", "About the project", "Band history"
+        and a page for every album;</li>
+    <li>lets visitors register and log in;</li>
+    <li>lets logged-in users add, edit and delete album pages.</li>
+</ul>
+
+<h2>Technologies</h2>
+<ul>
+    <li>Python and the Flask web framework;</li>
+    <li>Jinja2 templates for HTML pages;</li>
+    <li>SQLite database for albums and users;</li>
+    <li>HTML and CSS without additional front-end libraries;</li>
+    <li>Gunicorn web server for deployment on Heroku.</li>
+</ul>
+
+<h2>Author</h2>
+<p>Evelina Ivashchuk, group 444B.</p>
+{% endblock %}
